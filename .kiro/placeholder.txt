@@ -1,0 +1,1 @@
+This file exists so .kiro folder is recognized by GitHub.
