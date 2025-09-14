@@ -1,12 +1,16 @@
 {
   "name": "frontend",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "react-scripts": "5.0.1",
+    "axios": "^1.4.0"
   },
   "scripts": {
-    "start": "echo 'React frontend placeholder'"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test"
   }
 }
