@@ -6,50 +6,47 @@ const CodeBuddy = () => {
   const [code, setCode] = useState("");
   const [result, setResult] = useState("");
 
-  // Typing animation helper
-  const typeWriter = (text) => {
-    setResult("");
-    let i = 0;
-    const speed = 30;
-    const typing = () => {
-      if (i < text.length) {
-        setResult((prev) => prev + text.charAt(i));
-        i++;
-        setTimeout(typing, speed);
-      }
-    };
-    typing();
-  };
-
+  // Explain Code
   const handleExplain = async () => {
-    if (!code.trim()) return alert("Please enter code first!");
+    if (!code.trim()) {
+      alert("Please enter code first!");
+      return;
+    }
     try {
       const response = await explainCode(code);
-      typeWriter(response.data.result);
+      setResult(response.data.result);
     } catch (err) {
-      setResult("Error explaining code");
+      setResult("❌ Error explaining code");
       console.error(err);
     }
   };
 
+  // Suggest Optimizations
   const handleOptimize = async () => {
-    if (!code.trim()) return alert("Please enter code first!");
+    if (!code.trim()) {
+      alert("Please enter code first!");
+      return;
+    }
     try {
       const response = await suggestOptimizations(code);
-      typeWriter(response.data.result);
+      setResult(response.data.result);
     } catch (err) {
-      setResult("Error suggesting optimizations");
+      setResult("❌ Error suggesting optimizations");
       console.error(err);
     }
   };
 
+  // Generate Quiz
   const handleQuiz = async () => {
-    if (!code.trim()) return alert("Please enter code first!");
+    if (!code.trim()) {
+      alert("Please enter code first!");
+      return;
+    }
     try {
       const response = await generateQuiz(code);
-      typeWriter(response.data.result);
+      setResult(response.data.result);
     } catch (err) {
-      setResult("Error generating quiz");
+      setResult("❌ Error generating quiz");
       console.error(err);
     }
   };
