@@ -1,8 +1,12 @@
 import React from "react";
 import CodeBuddy from "./CodeBuddy";
 
-const App = () => {
-  return <CodeBuddy />;
-};
+function App() {
+  return (
+    <div>
+      <CodeBuddy />
+    </div>
+  );
+}
 
 export default App;
