@@ -1,13 +1,10 @@
 import axios from "axios";
 
-// Change this if your backend is deployed
-const API_BASE = "http://localhost:5000/api";
+// Change this to your actual Render backend URL
+const API = axios.create({
+  baseURL: "https://code-buddy-4mtq.onrender.com/api",
+});
 
-export const explainCode = (code) =>
-  axios.post(`${API_BASE}/explain`, { code });
-
-export const suggestOptimizations = (code) =>
-  axios.post(`${API_BASE}/optimize`, { code });
-
-export const generateQuiz = (code) =>
-  axios.post(`${API_BASE}/quiz`, { code });
+export const explainCode = (code) => API.post("/explain", { code });
+export const suggestOptimizations = (code) => API.post("/optimize", { code });
+export const generateQuiz = (code) => API.post("/quiz", { code });
