@@ -6,12 +6,8 @@ const CodeBuddy = () => {
   const [code, setCode] = useState("");
   const [result, setResult] = useState("");
 
-  // Explain Code
   const handleExplain = async () => {
-    if (!code.trim()) {
-      alert("Please enter code first!");
-      return;
-    }
+    if (!code.trim()) return alert("Please enter code first!");
     try {
       const response = await explainCode(code);
       setResult(response.data.result);
@@ -21,12 +17,8 @@ const CodeBuddy = () => {
     }
   };
 
-  // Suggest Optimizations
   const handleOptimize = async () => {
-    if (!code.trim()) {
-      alert("Please enter code first!");
-      return;
-    }
+    if (!code.trim()) return alert("Please enter code first!");
     try {
       const response = await suggestOptimizations(code);
       setResult(response.data.result);
@@ -36,12 +28,8 @@ const CodeBuddy = () => {
     }
   };
 
-  // Generate Quiz
   const handleQuiz = async () => {
-    if (!code.trim()) {
-      alert("Please enter code first!");
-      return;
-    }
+    if (!code.trim()) return alert("Please enter code first!");
     try {
       const response = await generateQuiz(code);
       setResult(response.data.result);
@@ -59,17 +47,13 @@ const CodeBuddy = () => {
         onChange={(e) => setCode(e.target.value)}
         placeholder="Paste your code here..."
         rows={10}
-        className="codeInput"
       />
-      <div className="buttonGroup">
+      <div className="button-group">
         <button onClick={handleExplain}>Explain Code</button>
         <button onClick={handleOptimize}>Suggest Optimizations</button>
         <button onClick={handleQuiz}>Generate Quiz</button>
       </div>
-      <div className="result">
-        <h3>Result:</h3>
-        <pre>{result || "❌ No result yet"}</pre>
-      </div>
+      <div className="result">{result || "❌ No result yet"}</div>
     </div>
   );
 };
