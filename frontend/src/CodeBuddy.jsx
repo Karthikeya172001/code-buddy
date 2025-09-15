@@ -1,80 +1,124 @@
 import React, { useState } from "react";
-import { explainCode, suggestOptimizations, generateQuiz } from "./api";
+import { explainCode, suggestOptimizations, generateQuiz } from "./api"; // Make sure the path is correct
 
 const CodeBuddy = () => {
   const [code, setCode] = useState("");
   const [result, setResult] = useState("");
-  const [loading, setLoading] = useState(false);
 
-  const handleAction = async (actionFn, errorMsg) => {
+  // Explain Code
+  const handleExplain = async () => {
     if (!code.trim()) {
       alert("Please enter code first!");
       return;
     }
-    setLoading(true);
-    setResult("");
     try {
-      const response = await actionFn(code);
+      const response = await explainCode(code);
       setResult(response.data.result);
     } catch (err) {
-      setResult(errorMsg);
+      setResult("Error explaining code");
       console.error(err);
     }
-    setLoading(false);
   };
 
-  const copyResult = () => {
-    if (result) navigator.clipboard.writeText(result);
+  // Suggest Optimizations
+  const handleOptimize = async () => {
+    if (!code.trim()) {
+      alert("Please enter code first!");
+      return;
+    }
+    try {
+      const response = await suggestOptimizations(code);
+      setResult(response.data.result);
+    } catch (err) {
+      setResult("Error suggesting optimizations");
+      console.error(err);
+    }
+  };
+
+  // Generate Quiz
+  const handleQuiz = async () => {
+    if (!code.trim()) {
+      alert("Please enter code first!");
+      return;
+    }
+    try {
+      const response = await generateQuiz(code);
+      setResult(response.data.result);
+    } catch (err) {
+      setResult("Error generating quiz");
+      console.error(err);
+    }
+  };
+
+  // Styles for responsiveness
+  const styles = {
+    container: {
+      padding: "10px",
+      maxWidth: "600px",
+      margin: "0 auto",
+      fontFamily: "Arial, sans-serif",
+    },
+    textarea: {
+      width: "100%",
+      marginBottom: "10px",
+      fontSize: "1rem",
+      padding: "10px",
+      borderRadius: "5px",
+      border: "1px solid #ccc",
+      boxSizing: "border-box",
+      resize: "vertical",
+    },
+    button: {
+      padding: "10px 15px",
+      fontSize: "1rem",
+      borderRadius: "5px",
+      border: "none",
+      cursor: "pointer",
+      flex: "1 1 45%",
+      minWidth: "120px",
+      marginBottom: "10px",
+    },
+    buttonContainer: {
+      display: "flex",
+      flexWrap: "wrap",
+      gap: "10px",
+      justifyContent: "space-between",
+    },
+    result: {
+      marginTop: "20px",
+      whiteSpace: "pre-wrap",
+      wordWrap: "break-word",
+      padding: "10px",
+      border: "1px solid #ddd",
+      borderRadius: "5px",
+      backgroundColor: "#f9f9f9",
+    },
   };
 
   return (
-    <div style={{ padding: "10px", maxWidth: "600px", margin: "0 auto" }}>
-      <h1 style={{ fontSize: "1.5rem" }}>🧑‍💻 Code Buddy</h1>
+    <div style={styles.container}>
+      <h1>🧑‍💻 Code Buddy</h1>
       <textarea
         value={code}
         onChange={(e) => setCode(e.target.value)}
         placeholder="Paste your code here..."
         rows={10}
-        style={{ width: "100%", marginBottom: "10px", fontSize: "1rem" }}
+        style={styles.textarea}
       />
-      <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
-        <button
-          onClick={() =>
-            handleAction(explainCode, "Error explaining code")
-          }
-        >
+      <div style={styles.buttonContainer}>
+        <button style={styles.button} onClick={handleExplain}>
           Explain Code
         </button>
-        <button
-          onClick={() =>
-            handleAction(suggestOptimizations, "Error suggesting optimizations")
-          }
-        >
+        <button style={styles.button} onClick={handleOptimize}>
           Suggest Optimizations
         </button>
-        <button
-          onClick={() =>
-            handleAction(generateQuiz, "Error generating quiz")
-          }
-        >
+        <button style={styles.button} onClick={handleQuiz}>
           Generate Quiz
         </button>
       </div>
-      {loading && <p>⏳ Loading...</p>}
-      <div
-        style={{
-          marginTop: "20px",
-          whiteSpace: "pre-wrap",
-          wordWrap: "break-word",
-        }}
-      >
+      <div style={styles.result}>
         <h3>Result:</h3>
         {result || "❌ No result yet"}
-        {result && (
-          <button onClick={copyResult} style={{ display: "block", marginTop: "10px" }}>
-            Copy Result
-          </button>
-        )}
       </div>
     </div>
   );
