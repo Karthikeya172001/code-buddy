@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://code-buddy-4mtq.onrender.com/api", // <-- your live backend URL
+  baseURL: "https://code-buddy-4mtq.onrender.com/api", // your backend URL
 });
 
 export const explainCode = (code) => API.post("/explain", { code });
