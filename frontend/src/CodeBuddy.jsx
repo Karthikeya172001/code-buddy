@@ -1,16 +1,12 @@
 import React, { useState } from "react";
-import { explainCode, suggestOptimizations, generateQuiz } from "./api"; // Make sure the path is correct
+import { explainCode, suggestOptimizations, generateQuiz } from "./api"; // adjust path
 
 const CodeBuddy = () => {
   const [code, setCode] = useState("");
   const [result, setResult] = useState("");
 
-  // Explain Code
   const handleExplain = async () => {
-    if (!code.trim()) {
-      alert("Please enter code first!");
-      return;
-    }
+    if (!code.trim()) return alert("Please enter code first!");
     try {
       const response = await explainCode(code);
       setResult(response.data.result);
@@ -20,12 +16,8 @@ const CodeBuddy = () => {
     }
   };
 
-  // Suggest Optimizations
   const handleOptimize = async () => {
-    if (!code.trim()) {
-      alert("Please enter code first!");
-      return;
-    }
+    if (!code.trim()) return alert("Please enter code first!");
     try {
       const response = await suggestOptimizations(code);
       setResult(response.data.result);
@@ -35,12 +27,8 @@ const CodeBuddy = () => {
     }
   };
 
-  // Generate Quiz
   const handleQuiz = async () => {
-    if (!code.trim()) {
-      alert("Please enter code first!");
-      return;
-    }
+    if (!code.trim()) return alert("Please enter code first!");
     try {
       const response = await generateQuiz(code);
       setResult(response.data.result);
@@ -50,54 +38,9 @@ const CodeBuddy = () => {
     }
   };
 
-  // Styles for responsiveness
-  const styles = {
-    container: {
-      padding: "10px",
-      maxWidth: "600px",
-      margin: "0 auto",
-      fontFamily: "Arial, sans-serif",
-    },
-    textarea: {
-      width: "100%",
-      marginBottom: "10px",
-      fontSize: "1rem",
-      padding: "10px",
-      borderRadius: "5px",
-      border: "1px solid #ccc",
-      boxSizing: "border-box",
-      resize: "vertical",
-    },
-    button: {
-      padding: "10px 15px",
-      fontSize: "1rem",
-      borderRadius: "5px",
-      border: "none",
-      cursor: "pointer",
-      flex: "1 1 45%",
-      minWidth: "120px",
-      marginBottom: "10px",
-    },
-    buttonContainer: {
-      display: "flex",
-      flexWrap: "wrap",
-      gap: "10px",
-      justifyContent: "space-between",
-    },
-    result: {
-      marginTop: "20px",
-      whiteSpace: "pre-wrap",
-      wordWrap: "break-word",
-      padding: "10px",
-      border: "1px solid #ddd",
-      borderRadius: "5px",
-      backgroundColor: "#f9f9f9",
-    },
-  };
-
   return (
     <div style={styles.container}>
-      <h1>🧑‍💻 Code Buddy</h1>
+      <h1 style={styles.title}>🧑‍💻 Code Buddy</h1>
       <textarea
         value={code}
         onChange={(e) => setCode(e.target.value)}
@@ -106,22 +49,57 @@ const CodeBuddy = () => {
         style={styles.textarea}
       />
       <div style={styles.buttonContainer}>
-        <button style={styles.button} onClick={handleExplain}>
-          Explain Code
-        </button>
-        <button style={styles.button} onClick={handleOptimize}>
-          Suggest Optimizations
-        </button>
-        <button style={styles.button} onClick={handleQuiz}>
-          Generate Quiz
-        </button>
+        <button style={styles.button} onClick={handleExplain}>Explain Code</button>
+        <button style={styles.button} onClick={handleOptimize}>Suggest Optimizations</button>
+        <button style={styles.button} onClick={handleQuiz}>Generate Quiz</button>
       </div>
-      <div style={styles.result}>
+      <div style={styles.resultContainer}>
         <h3>Result:</h3>
-        {result || "❌ No result yet"}
+        <pre style={styles.result}>{result || "❌ No result yet"}</pre>
       </div>
     </div>
   );
+};
+
+const styles = {
+  container: {
+    padding: "10px",
+    maxWidth: "600px",
+    margin: "0 auto",
+    fontFamily: "Arial, sans-serif",
+  },
+  title: {
+    fontSize: "1.5rem",
+    textAlign: "center",
+    marginBottom: "10px",
+  },
+  textarea: {
+    width: "100%",
+    fontSize: "1rem",
+    padding: "8px",
+    marginBottom: "10px",
+    boxSizing: "border-box",
+  },
+  buttonContainer: {
+    display: "flex",
+    flexDirection: "column",
+    gap: "8px",
+  },
+  button: {
+    padding: "10px",
+    fontSize: "1rem",
+    cursor: "pointer",
+  },
+  resultContainer: {
+    marginTop: "15px",
+    wordBreak: "break-word",
+  },
+  result: {
+    background: "#f4f4f4",
+    padding: "10px",
+    borderRadius: "5px",
+    whiteSpace: "pre-wrap",
+  },
 };
 
 export default CodeBuddy;
