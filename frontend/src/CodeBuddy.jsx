@@ -1,9 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { explainCode, suggestOptimizations, generateQuiz } from "./api"; // make sure this path is correct
 
 const CodeBuddy = () => {
   const [code, setCode] = useState("");
   const [result, setResult] = useState("");
+  const textareaRef = useRef(null);
+
+  // Adjust textarea height dynamically
+  useEffect(() => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "auto";
+      textareaRef.current.style.height = textareaRef.current.scrollHeight + "px";
+    }
+  }, [code]);
 
   // Explain Code
   const handleExplain = async () => {
@@ -50,10 +59,17 @@ const CodeBuddy = () => {
     }
   };
 
-  // Styles for responsiveness
+  // Responsive styles
   const styles = {
     container: { padding: "20px", maxWidth: "800px", margin: "auto" },
-    textarea: { width: "100%", marginBottom: "10px", minHeight: "150px" },
+    textarea: {
+      width: "100%",
+      marginBottom: "10px",
+      minHeight: "150px",
+      resize: "none",
+      padding: "10px",
+      fontSize: "1rem",
+    },
     buttonContainer: {
       display: "flex",
       flexWrap: "wrap",
@@ -73,6 +89,7 @@ const CodeBuddy = () => {
     <div style={styles.container}>
       <h1>🧑‍💻 Code Buddy</h1>
       <textarea
+        ref={textareaRef}
         value={code}
         onChange={(e) => setCode(e.target.value)}
         placeholder="Paste your code here..."
