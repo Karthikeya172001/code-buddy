@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { explainCode, suggestOptimizations, generateQuiz } from "./api"; // make sure this path is correct
-import "./CodeBuddy.css"; // ← import the enhanced CSS here
+import { explainCode, suggestOptimizations, generateQuiz } from "./api";
+import "./CodeBuddy.css";
 
 const CodeBuddy = () => {
   const [code, setCode] = useState("");
@@ -52,22 +52,23 @@ const CodeBuddy = () => {
   };
 
   return (
-    <div>
+    <div className="CodeBuddyContainer">
       <h1>🧑‍💻 Code Buddy</h1>
       <textarea
         value={code}
         onChange={(e) => setCode(e.target.value)}
         placeholder="Paste your code here..."
         rows={10}
+        className="codeInput"
       />
-      <div>
+      <div className="buttonGroup">
         <button onClick={handleExplain}>Explain Code</button>
         <button onClick={handleOptimize}>Suggest Optimizations</button>
         <button onClick={handleQuiz}>Generate Quiz</button>
       </div>
-      <div style={{ whiteSpace: "pre-wrap" }}>
+      <div className="result">
         <h3>Result:</h3>
-        {result || "❌ No result yet"}
+        <pre>{result || "❌ No result yet"}</pre>
       </div>
     </div>
   );
