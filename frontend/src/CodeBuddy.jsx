@@ -1,12 +1,16 @@
 import React, { useState } from "react";
-import { explainCode, suggestOptimizations, generateQuiz } from "./api"; // adjust path
+import { explainCode, suggestOptimizations, generateQuiz } from "./api"; // make sure this path is correct
 
 const CodeBuddy = () => {
   const [code, setCode] = useState("");
   const [result, setResult] = useState("");
 
+  // Explain Code
   const handleExplain = async () => {
-    if (!code.trim()) return alert("Please enter code first!");
+    if (!code.trim()) {
+      alert("Please enter code first!");
+      return;
+    }
     try {
       const response = await explainCode(code);
       setResult(response.data.result);
@@ -16,8 +20,12 @@ const CodeBuddy = () => {
     }
   };
 
+  // Suggest Optimizations
   const handleOptimize = async () => {
-    if (!code.trim()) return alert("Please enter code first!");
+    if (!code.trim()) {
+      alert("Please enter code first!");
+      return;
+    }
     try {
       const response = await suggestOptimizations(code);
       setResult(response.data.result);
@@ -27,8 +35,12 @@ const CodeBuddy = () => {
     }
   };
 
+  // Generate Quiz
   const handleQuiz = async () => {
-    if (!code.trim()) return alert("Please enter code first!");
+    if (!code.trim()) {
+      alert("Please enter code first!");
+      return;
+    }
     try {
       const response = await generateQuiz(code);
       setResult(response.data.result);
@@ -38,68 +50,51 @@ const CodeBuddy = () => {
     }
   };
 
+  // Styles for responsiveness
+  const styles = {
+    container: { padding: "20px", maxWidth: "800px", margin: "auto" },
+    textarea: { width: "100%", marginBottom: "10px", minHeight: "150px" },
+    buttonContainer: {
+      display: "flex",
+      flexWrap: "wrap",
+      gap: "10px",
+      justifyContent: "center",
+    },
+    button: {
+      flex: "1 1 150px",
+      padding: "10px",
+      fontSize: "1rem",
+      cursor: "pointer",
+    },
+    result: { marginTop: "20px", whiteSpace: "pre-wrap" },
+  };
+
   return (
     <div style={styles.container}>
-      <h1 style={styles.title}>🧑‍💻 Code Buddy</h1>
+      <h1>🧑‍💻 Code Buddy</h1>
       <textarea
         value={code}
         onChange={(e) => setCode(e.target.value)}
         placeholder="Paste your code here..."
-        rows={10}
         style={styles.textarea}
       />
       <div style={styles.buttonContainer}>
-        <button style={styles.button} onClick={handleExplain}>Explain Code</button>
-        <button style={styles.button} onClick={handleOptimize}>Suggest Optimizations</button>
-        <button style={styles.button} onClick={handleQuiz}>Generate Quiz</button>
+        <button onClick={handleExplain} style={styles.button}>
+          Explain Code
+        </button>
+        <button onClick={handleOptimize} style={styles.button}>
+          Suggest Optimizations
+        </button>
+        <button onClick={handleQuiz} style={styles.button}>
+          Generate Quiz
+        </button>
       </div>
-      <div style={styles.resultContainer}>
+      <div style={styles.result}>
         <h3>Result:</h3>
-        <pre style={styles.result}>{result || "❌ No result yet"}</pre>
+        {result || "❌ No result yet"}
       </div>
     </div>
   );
-};
-
-const styles = {
-  container: {
-    padding: "10px",
-    maxWidth: "600px",
-    margin: "0 auto",
-    fontFamily: "Arial, sans-serif",
-  },
-  title: {
-    fontSize: "1.5rem",
-    textAlign: "center",
-    marginBottom: "10px",
-  },
-  textarea: {
-    width: "100%",
-    fontSize: "1rem",
-    padding: "8px",
-    marginBottom: "10px",
-    boxSizing: "border-box",
-  },
-  buttonContainer: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "8px",
-  },
-  button: {
-    padding: "10px",
-    fontSize: "1rem",
-    cursor: "pointer",
-  },
-  resultContainer: {
-    marginTop: "15px",
-    wordBreak: "break-word",
-  },
-  result: {
-    background: "#f4f4f4",
-    padding: "10px",
-    borderRadius: "5px",
-    whiteSpace: "pre-wrap",
-  },
 };
 
 export default CodeBuddy;
