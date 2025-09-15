@@ -1,100 +1,85 @@
+/* CodeBuddy.css */
+
 .CodeBuddyContainer {
-  max-width: 600px;
-  margin: 20px auto;
-  padding: 25px;
-  background: linear-gradient(135deg, #e0f7fa, #f3e5f5);
-  border-radius: 20px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  max-width: 800px;
+  margin: 30px auto;
+  padding: 20px;
+  background: linear-gradient(145deg, #1e1e2f, #2b2b3f);
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  color: #f0f0f0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  transition: all 0.3s ease;
 }
 
 .CodeBuddyContainer h1 {
   text-align: center;
-  margin-bottom: 25px;
-  background: linear-gradient(90deg, #ff6f61, #fbc02d, #4a90e2);
-  -webkit-background-clip: text;
-  color: transparent;
-  font-size: 2.2em;
-  font-weight: bold;
-  animation: gradientText 3s infinite linear;
-}
-
-@keyframes gradientText {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  margin-bottom: 20px;
+  color: #ffcc00;
 }
 
 .CodeBuddyContainer textarea {
   width: 100%;
-  padding: 14px;
-  border-radius: 12px;
-  border: 1px solid #ccc;
-  font-family: monospace;
-  font-size: 14px;
+  border-radius: 10px;
+  border: 1px solid #444;
+  background: #1f1f2f;
+  color: #f0f0f0;
+  padding: 10px;
+  font-size: 16px;
   resize: vertical;
-  transition: all 0.2s ease;
-}
-
-.CodeBuddyContainer textarea:focus {
-  border-color: #4a90e2;
-  box-shadow: 0 0 12px rgba(74, 144, 226, 0.3);
-  outline: none;
 }
 
 .button-group {
-  margin-top: 18px;
   display: flex;
+  justify-content: center;
+  margin-top: 15px;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 10px;
 }
 
 .button-group button {
-  flex: 1;
-  padding: 14px;
+  background: linear-gradient(90deg, #ff7f50, #ff1493);
   border: none;
-  border-radius: 12px;
-  background: linear-gradient(45deg, #ff6f61, #fbc02d, #4a90e2);
-  background-size: 400% 400%;
+  border-radius: 8px;
+  padding: 10px 20px;
   color: white;
   font-weight: bold;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.12);
-  animation: gradientBG 8s ease infinite;
 }
 
 .button-group button:hover {
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-}
-
-@keyframes gradientBG {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(255, 20, 147, 0.5);
 }
 
 .result {
-  margin-top: 28px;
+  margin-top: 25px;
+  padding: 15px;
+  background: #2c2c3f;
+  border-radius: 10px;
+  min-height: 120px;
+  overflow-x: auto;
+}
+
+.result h3 {
+  margin-bottom: 10px;
+  color: #ffcc00;
+}
+
+.result pre {
   white-space: pre-wrap;
-  padding: 18px;
-  border-radius: 14px;
-  background: rgba(255,255,255,0.95);
-  border: 1px solid #ddd;
-  min-height: 70px;
-  font-size: 14px;
-  animation: fadeIn 0.6s ease-in-out;
+  word-wrap: break-word;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 15px;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@media (max-width: 480px) {
+/* Responsive for mobile */
+@media (max-width: 600px) {
   .button-group {
     flex-direction: column;
+  }
+
+  .button-group button {
+    width: 100%;
   }
 }
