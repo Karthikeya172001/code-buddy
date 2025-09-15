@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import { explainCode, suggestOptimizations, generateQuiz } from "./api";
+import { explainCode, suggestOptimizations, generateQuiz } from "./api"; // make sure this path is correct
+import "./CodeBuddy.css"; // ← import the enhanced CSS here
 
 const CodeBuddy = () => {
   const [code, setCode] = useState("");
   const [result, setResult] = useState("");
 
+  // Explain Code
   const handleExplain = async () => {
     if (!code.trim()) {
       alert("Please enter code first!");
@@ -19,6 +21,7 @@ const CodeBuddy = () => {
     }
   };
 
+  // Suggest Optimizations
   const handleOptimize = async () => {
     if (!code.trim()) {
       alert("Please enter code first!");
@@ -33,6 +36,7 @@ const CodeBuddy = () => {
     }
   };
 
+  // Generate Quiz
   const handleQuiz = async () => {
     if (!code.trim()) {
       alert("Please enter code first!");
@@ -48,21 +52,20 @@ const CodeBuddy = () => {
   };
 
   return (
-    <div style={{ padding: "20px", maxWidth: "600px", margin: "0 auto" }}>
+    <div>
       <h1>🧑‍💻 Code Buddy</h1>
       <textarea
         value={code}
         onChange={(e) => setCode(e.target.value)}
         placeholder="Paste your code here..."
         rows={10}
-        style={{ width: "100%", marginBottom: "10px" }}
       />
-      <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
+      <div>
         <button onClick={handleExplain}>Explain Code</button>
         <button onClick={handleOptimize}>Suggest Optimizations</button>
         <button onClick={handleQuiz}>Generate Quiz</button>
       </div>
-      <div style={{ marginTop: "20px", whiteSpace: "pre-wrap" }}>
+      <div style={{ whiteSpace: "pre-wrap" }}>
         <h3>Result:</h3>
         {result || "❌ No result yet"}
       </div>
