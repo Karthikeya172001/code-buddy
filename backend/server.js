@@ -1,60 +1,38 @@
-// backend/server.js
 import express from "express";
 import cors from "cors";
 
 const app = express();
-
 app.use(cors());
 app.use(express.json());
 
-// ✅ Root check
-app.get("/", (req, res) => {
-  res.send("Code Buddy Backend is running ✅");
-});
-
-// ✅ Explain Code
+// Dummy routes
 app.post("/api/explain", (req, res) => {
   const { code } = req.body;
-  if (!code) {
-    return res.status(400).json({ error: "No code provided" });
-  }
-  res.json({ explanation: `This is a simple explanation of: ${code}` });
+  res.json({ result: `This code defines: ${code.substring(0, 20)}...` });
 });
 
-// ✅ Suggest Optimizations
 app.post("/api/optimize", (req, res) => {
   const { code } = req.body;
-  if (!code) {
-    return res.status(400).json({ error: "No code provided" });
-  }
   res.json({
-    optimizations: [
-      "Replace loops with built-in functions",
-      "Use constants instead of magic numbers",
-      `Optimize code block: ${code}`
-    ],
+    result: [
+      "Use meaningful variable names",
+      "Avoid nested loops if possible",
+      "Add comments for clarity"
+    ]
   });
 });
 
-// ✅ Generate Quiz
 app.post("/api/quiz", (req, res) => {
-  const { code } = req.body;
-  if (!code) {
-    return res.status(400).json({ error: "No code provided" });
-  }
   res.json({
-    quiz: [
+    result: [
       {
         question: "What does this code do?",
-        options: ["Option A", "Option B", "Option C"],
-        answer: "Option A",
-      },
-    ],
+        options: ["Sorts an array", "Reverses a string", "Prints numbers"],
+        answer: "Sorts an array"
+      }
+    ]
   });
 });
 
-// ✅ Port setup
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`);
-});
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
