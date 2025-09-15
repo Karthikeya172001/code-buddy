@@ -1,70 +1,79 @@
 import React, { useState } from "react";
-import { explainCode, suggestOptimizations, generateQuiz } from "./api"; // make sure this path is correct
+import { explainCode, suggestOptimizations, generateQuiz } from "./api";
 
 const CodeBuddy = () => {
   const [code, setCode] = useState("");
   const [result, setResult] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // Helper to call API safely
-  const handleRequest = async (apiFn, errorMsg) => {
+  const handleAction = async (actionFn, errorMsg) => {
     if (!code.trim()) {
-      alert("⚠️ Please enter code first!");
+      alert("Please enter code first!");
       return;
     }
+    setLoading(true);
+    setResult("");
     try {
-      setLoading(true);
-      setResult("");
-      const response = await apiFn(code);
-      setResult(response.data.result || "✅ No response content");
+      const response = await actionFn(code);
+      setResult(response.data.result);
     } catch (err) {
+      setResult(errorMsg);
       console.error(err);
-      setResult(`❌ ${errorMsg}`);
-    } finally {
-      setLoading(false);
     }
+    setLoading(false);
+  };
+
+  const copyResult = () => {
+    if (result) navigator.clipboard.writeText(result);
   };
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>🧑‍💻 Code Buddy</h1>
-
+    <div style={{ padding: "10px", maxWidth: "600px", margin: "0 auto" }}>
+      <h1 style={{ fontSize: "1.5rem" }}>🧑‍💻 Code Buddy</h1>
       <textarea
         value={code}
         onChange={(e) => setCode(e.target.value)}
         placeholder="Paste your code here..."
         rows={10}
-        style={{
-          width: "100%",
-          marginBottom: "10px",
-          fontFamily: "monospace",
-        }}
+        style={{ width: "100%", marginBottom: "10px", fontSize: "1rem" }}
       />
-
-      <div>
-        <button onClick={() => handleRequest(explainCode, "Error explaining code")}>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
+        <button
+          onClick={() =>
+            handleAction(explainCode, "Error explaining code")
+          }
+        >
           Explain Code
         </button>
         <button
-          onClick={() => handleRequest(suggestOptimizations, "Error suggesting optimizations")}
-          style={{ marginLeft: "10px" }}
+          onClick={() =>
+            handleAction(suggestOptimizations, "Error suggesting optimizations")
+          }
         >
           Suggest Optimizations
         </button>
         <button
-          onClick={() => handleRequest(generateQuiz, "Error generating quiz")}
-          style={{ marginLeft: "10px" }}
+          onClick={() =>
+            handleAction(generateQuiz, "Error generating quiz")
+          }
         >
           Generate Quiz
         </button>
       </div>
-
-      <div style={{ marginTop: "20px", whiteSpace: "pre-wrap" }}>
+      {loading && <p>⏳ Loading...</p>}
+      <div
+        style={{
+          marginTop: "20px",
+          whiteSpace: "pre-wrap",
+          wordWrap: "break-word",
+        }}
+      >
         <h3>Result:</h3>
-        {loading ? (
-          <p>⏳ Processing... please wait</p>
-        ) : (
-          <p>{result || "❌ No result yet"}</p>
+        {result || "❌ No result yet"}
+        {result && (
+          <button onClick={copyResult} style={{ display: "block", marginTop: "10px" }}>
+            Copy Result
+          </button>
         )}
       </div>
     </div>
