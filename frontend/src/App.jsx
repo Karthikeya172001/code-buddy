@@ -2,11 +2,7 @@ import React from "react";
 import CodeBuddy from "./CodeBuddy";
 
 function App() {
-  return (
-    <div>
-      <CodeBuddy />
-    </div>
-  );
+  return <CodeBuddy />;
 }
 
 export default App;
