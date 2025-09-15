@@ -1,12 +1,12 @@
 import React from "react";
-import CodeBuddy from "./CodeBuddy";
+import CodeBuddy from "./CodeBuddy"; // Make sure this path matches your file structure
 
-function App() {
+const App = () => {
   return (
     <div>
       <CodeBuddy />
     </div>
   );
-}
+};
 
 export default App;
