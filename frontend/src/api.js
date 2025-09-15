@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://your-backend-domain.com/api", // replace with your backend URL
+  baseURL: "https://your-backend-domain.com/api", // Replace with your deployed backend URL
 });
 
 export const explainCode = (code) => API.post("/explain", { code });
