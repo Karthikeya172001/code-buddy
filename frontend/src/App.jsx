@@ -1,9 +1,9 @@
 import React from "react";
-import CodeBuddy from "./CodeBuddy"; // Make sure this path matches your file structure
+import CodeBuddy from "./CodeBuddy"; // make sure the path matches your project structure
 
 const App = () => {
   return (
-    <div>
+    <div style={{ minHeight: "100vh", backgroundColor: "#f5f5f5" }}>
       <CodeBuddy />
     </div>
   );
