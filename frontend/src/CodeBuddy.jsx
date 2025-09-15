@@ -14,7 +14,7 @@ const CodeBuddy = () => {
       const response = await explainCode(code);
       setResult(response.data.result);
     } catch (err) {
-      setResult("Error explaining code");
+      setResult("❌ Error explaining code");
       console.error(err);
     }
   };
@@ -28,7 +28,7 @@ const CodeBuddy = () => {
       const response = await suggestOptimizations(code);
       setResult(response.data.result);
     } catch (err) {
-      setResult("Error suggesting optimizations");
+      setResult("❌ Error suggesting optimizations");
       console.error(err);
     }
   };
@@ -42,7 +42,7 @@ const CodeBuddy = () => {
       const response = await generateQuiz(code);
       setResult(response.data.result);
     } catch (err) {
-      setResult("Error generating quiz");
+      setResult("❌ Error generating quiz");
       console.error(err);
     }
   };
