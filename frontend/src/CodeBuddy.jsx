@@ -4,15 +4,26 @@ import "./CodeBuddy.css";
 
 const CodeBuddy = () => {
   const [code, setCode] = useState("");
-  const [result, setResult] = useState("");
+  const [displayedResult, setDisplayedResult] = useState("");
+
+  // Typing effect function
+  const typeResult = (text) => {
+    let index = 0;
+    setDisplayedResult("");
+    const interval = setInterval(() => {
+      setDisplayedResult((prev) => prev + text[index]);
+      index++;
+      if (index >= text.length) clearInterval(interval);
+    }, 20);
+  };
 
   const handleExplain = async () => {
     if (!code.trim()) return alert("Please enter code first!");
     try {
       const response = await explainCode(code);
-      setResult(response.data.result);
+      typeResult(response.data.result);
     } catch (err) {
-      setResult("Error explaining code");
+      setDisplayedResult("❌ Error explaining code");
       console.error(err);
     }
   };
@@ -21,9 +32,9 @@ const CodeBuddy = () => {
     if (!code.trim()) return alert("Please enter code first!");
     try {
       const response = await suggestOptimizations(code);
-      setResult(response.data.result);
+      typeResult(response.data.result);
     } catch (err) {
-      setResult("Error suggesting optimizations");
+      setDisplayedResult("❌ Error suggesting optimizations");
       console.error(err);
     }
   };
@@ -32,9 +43,9 @@ const CodeBuddy = () => {
     if (!code.trim()) return alert("Please enter code first!");
     try {
       const response = await generateQuiz(code);
-      setResult(response.data.result);
+      typeResult(response.data.result);
     } catch (err) {
-      setResult("Error generating quiz");
+      setDisplayedResult("❌ Error generating quiz");
       console.error(err);
     }
   };
@@ -53,7 +64,10 @@ const CodeBuddy = () => {
         <button onClick={handleOptimize}>Suggest Optimizations</button>
         <button onClick={handleQuiz}>Generate Quiz</button>
       </div>
-      <div className="result">{result || "❌ No result yet"}</div>
+      <div className="result">
+        <h3>Result:</h3>
+        <pre>{displayedResult || "❌ No result yet"}</pre>
+      </div>
     </div>
   );
 };
