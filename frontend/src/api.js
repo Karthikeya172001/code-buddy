@@ -1,7 +1,14 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: process.env.REACT_APP_API_URL || "https://code-buddy-4mtq.onrender.com",
+  baseURL: "https://code-buddy-4mtq.onrender.com/api",
 });
 
-export default API;
+export const explainCode = (code) =>
+  API.post("/explain", { code });
+
+export const suggestOptimizations = (code) =>
+  API.post("/optimize", { code });
+
+export const generateQuiz = (code) =>
+  API.post("/quiz", { code });
