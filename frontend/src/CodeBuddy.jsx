@@ -4,26 +4,30 @@ import "./CodeBuddy.css";
 
 const CodeBuddy = () => {
   const [code, setCode] = useState("");
-  const [displayedResult, setDisplayedResult] = useState("");
+  const [result, setResult] = useState("");
 
-  // Typing effect function
-  const typeResult = (text) => {
-    let index = 0;
-    setDisplayedResult("");
-    const interval = setInterval(() => {
-      setDisplayedResult((prev) => prev + text[index]);
-      index++;
-      if (index >= text.length) clearInterval(interval);
-    }, 20);
+  // Typing animation helper
+  const typeWriter = (text) => {
+    setResult("");
+    let i = 0;
+    const speed = 30;
+    const typing = () => {
+      if (i < text.length) {
+        setResult((prev) => prev + text.charAt(i));
+        i++;
+        setTimeout(typing, speed);
+      }
+    };
+    typing();
   };
 
   const handleExplain = async () => {
     if (!code.trim()) return alert("Please enter code first!");
     try {
       const response = await explainCode(code);
-      typeResult(response.data.result);
+      typeWriter(response.data.result);
     } catch (err) {
-      setDisplayedResult("❌ Error explaining code");
+      setResult("Error explaining code");
       console.error(err);
     }
   };
@@ -32,9 +36,9 @@ const CodeBuddy = () => {
     if (!code.trim()) return alert("Please enter code first!");
     try {
       const response = await suggestOptimizations(code);
-      typeResult(response.data.result);
+      typeWriter(response.data.result);
     } catch (err) {
-      setDisplayedResult("❌ Error suggesting optimizations");
+      setResult("Error suggesting optimizations");
       console.error(err);
     }
   };
@@ -43,9 +47,9 @@ const CodeBuddy = () => {
     if (!code.trim()) return alert("Please enter code first!");
     try {
       const response = await generateQuiz(code);
-      typeResult(response.data.result);
+      typeWriter(response.data.result);
     } catch (err) {
-      setDisplayedResult("❌ Error generating quiz");
+      setResult("Error generating quiz");
       console.error(err);
     }
   };
@@ -64,10 +68,7 @@ const CodeBuddy = () => {
         <button onClick={handleOptimize}>Suggest Optimizations</button>
         <button onClick={handleQuiz}>Generate Quiz</button>
       </div>
-      <div className="result">
-        <h3>Result:</h3>
-        <pre>{displayedResult || "❌ No result yet"}</pre>
-      </div>
+      <div className="result">{result || "❌ No result yet"}</div>
     </div>
   );
 };
