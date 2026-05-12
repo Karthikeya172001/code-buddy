@@ -17,7 +17,7 @@ const CodeBuddy = () => {
       setResult(response.data.result);
     } catch (err) {
       setResult("❌ Error explaining code");
-      console.error(err);
+      console.error(err.response?.data || err.message);
     }
   };
 
@@ -32,7 +32,7 @@ const CodeBuddy = () => {
       setResult(response.data.result);
     } catch (err) {
       setResult("❌ Error suggesting optimizations");
-      console.error(err);
+      console.error(err.response?.data || err.message);
     }
   };
 
@@ -47,7 +47,7 @@ const CodeBuddy = () => {
       setResult(response.data.result);
     } catch (err) {
       setResult("❌ Error generating quiz");
-      console.error(err);
+      console.error(err.response?.data || err.message);
     }
   };
 
