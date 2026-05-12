@@ -21,7 +21,7 @@ app.post("/api/explain", async (req, res) => {
     const { code } = req.body;
 
     const completion = await openai.chat.completions.create({
-      model: "gpt-4.1-mini",
+      model: "llama-3.1-8b-instant",
       messages: [
         {
           role: "user",
