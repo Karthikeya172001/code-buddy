@@ -48,7 +48,7 @@ app.post("/api/optimize", async (req, res) => {
     const { code } = req.body;
 
     const completion = await openai.chat.completions.create({
-      model: "gpt-4.1-mini",
+      model: "llama-3.1-8b-instant",
       messages: [
         {
           role: "user",
@@ -75,7 +75,7 @@ app.post("/api/quiz", async (req, res) => {
     const { code } = req.body;
 
     const completion = await openai.chat.completions.create({
-      model: "gpt-4.1-mini",
+      model: "llama-3.1-8b-instant",
       messages: [
         {
           role: "user",
