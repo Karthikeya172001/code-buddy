@@ -163,19 +163,19 @@ code-buddy/
 
 ### Home Page
 
-screenshot/start - buddy .png
+screenshot/start-buddy.png
 
 ### Code Explanation
 
-screenshot/explains - buddy .png
+screenshot/explains-buddy.png
 
 ### Code Optimization
 
-screenshot/suggest - buddy .png
+screenshot/suggest-buddy.png
 
 ### Quiz Generation
 
-screenshot/quizs - buddy .png
+screenshot/quizs-buddy.png
 
 ---
 
