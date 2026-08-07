@@ -171,7 +171,7 @@ code-buddy/
 
 ### Code Optimization
 
-![Code Optimization](screenshots/suggest-buddy.png)
+![Code Optimization](screenshots/suggestion-buddy.png)
 
 ### Quiz Generation
 
